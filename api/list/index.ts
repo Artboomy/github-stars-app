@@ -1,20 +1,23 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
-
+import Axios from "axios";
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
-    context.log('HTTP trigger function processed a request.');
-    const name = (req.query.name || (req.body && req.body.name));
-
-    if (name) {
+    const response = await Axios.get('https://api.github.com/search/repositories', {
+        params: {
+            q: 'language:typescript',
+            sort: 'stars',
+            order: 'desc',
+            per_page: 10
+        }
+    });
+    if (response.status !== 200) {
         context.res = {
-            // status: 200, /* Defaults to 200 */
-            body: "Hello " + (req.query.name || req.body.name)
-        };
-    }
-    else {
+            status: response.status,
+            body: response.statusText
+        }
+    } else {
         context.res = {
-            status: 400,
-            body: "Please pass a name on the query string or in the request body"
-        };
+            body: response.data.items
+        }
     }
 };
 
