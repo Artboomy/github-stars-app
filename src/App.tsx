@@ -1,26 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Axios from 'axios';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+interface IState {
+  testData?: string
+}
+
+class App extends React.Component<{}, IState>{
+  constructor(props: {}) {
+    super(props);
+    this.state = {
+      testData: undefined
+    }
+  }
+
+  async componentDidMount(): Promise<void> {
+    const response = await Axios.get('api/list', {
+      params: {
+        name: 'SomeTestName'
+      }
+    });
+    this.setState({testData: response.data});
+  }
+
+  render(): React.ReactNode {
+    return <div>{this.state.testData || 'Loading...'}</div>;
+  }
 }
 
 export default App;
