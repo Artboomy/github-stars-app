@@ -24,7 +24,12 @@ class App extends React.Component<{}, IState>{
   }
 
   render(): React.ReactNode {
-    return <div>{this.state.testData || 'Loading...'}</div>;
+    return (
+       <div>
+         <div>Список самых популярных JS-репозиториев</div>
+         <div>{this.state.testData || 'Loading...'}</div>
+       </div>
+    );
   }
 }
 
