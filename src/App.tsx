@@ -3,6 +3,7 @@ import './App.css';
 import Axios from 'axios';
 import {IRepositoryInfo} from "./types/declarations";
 import List from "./components/List";
+import 'semantic-ui-css/semantic.min.css'
 
 interface IState {
   items: IRepositoryInfo[] | null
