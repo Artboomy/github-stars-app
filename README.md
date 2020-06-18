@@ -11,7 +11,7 @@
 
 Live version is available at https://lively-ocean-00cc68310.azurestaticapps.net/
 
-GUI created with create-react-app.
+GUI created with create-react-app and [semantic-ui](https://react.semantic-ui.com/).
 
 Backend created with Azure Functions.
 
